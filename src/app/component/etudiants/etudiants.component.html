@@ -1,0 +1,130 @@
+
+<div class="container mt-4">
+    
+  <div class="d-flex justify-content-between">
+    <h2>Liste des Étudiants</h2>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#etudiantModal">Ajouter Étudiant</button>
+  </div>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-active">
+          <th>#</th>
+          <th>Code</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Âge</th>
+          <th>Téléphone</th>
+          <th class="d-grid gap-2 d-md-flex justify-content-md-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let etudiant of etudiants">
+          <td>{{ etudiant.id }}</td>
+          <td>{{ etudiant.code }}</td>
+          <td>{{ etudiant.nom }}</td>
+          <td>{{ etudiant.prenom }}</td>
+          <td>{{ etudiant.age }}</td>
+          <td>{{ etudiant.telephone }}</td>
+          <td>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-outline-danger btn-sm" (click)="supprimerEtudiant(etudiant.id)">Supprimer</button>
+              <button 
+                class="btn btn-outline-primary btn-sm" 
+                data-bs-toggle="modal" 
+                data-bs-target="#modifierEtudiantModal"
+                (click)="detailEtudiant(etudiant.id)">
+                Modifier
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal Bootstrap -->
+  <div class="modal fade" id="etudiantModal" tabindex="-1" aria-labelledby="etudiantModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter Étudiant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        </div>
+        <div class="modal-body">
+          
+          <form (ngSubmit)="ajouterEtudiant()" class="row g-3">
+            <div class="form-group mb-2">
+              <label for="code">Code</label>
+              <input type="text" class="form-control" id="code" [(ngModel)]="newEtudiant.code" name="code" required>
+            </div>
+            <div class="form-group mb-2">
+              <label for="nom">Nom</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="newEtudiant.nom" name="nom" required>
+            </div>
+            <div class="form-group mb-2">
+              <label for="prenom">Prénom</label>
+              <input type="text" class="form-control" id="prenom" [(ngModel)]="newEtudiant.prenom" name="prenom" required>
+            </div>
+            <div class="form-group mb-2">
+              <label for="age">Âge</label>
+              <input type="number" class="form-control" id="age" [(ngModel)]="newEtudiant.age" name="age" required>
+            </div>
+            
+            <div class="form-group mb-2">
+              <label for="phone">Téléphone</label>
+              <input type="number" class="form-control" id="phone" [(ngModel)]="newEtudiant.telephone" name="phone" required>
+            </div>
+
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-success mt-4">Enregistrer</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal pour Modifier Étudiant -->
+<div class="modal fade" id="modifierEtudiantModal" tabindex="-1" aria-labelledby="modifierEtudiantModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier Étudiant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="modifierEtudiant(showEtudiant!.id, showEtudiant)" class="row g-3">
+          <div class="form-group mb-2">
+            <label for="code">Code</label>
+            <input type="text" class="form-control" id="code" [(ngModel)]="showEtudiant!.code" name="code" required>
+          </div>
+          <div class="form-group mb-2">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" [(ngModel)]="showEtudiant!.nom" name="nom" required>
+          </div>
+          <div class="form-group mb-2">
+            <label for="prenom">Prénom</label>
+            <input type="text" class="form-control" id="prenom" [(ngModel)]="showEtudiant!.prenom" name="prenom" required>
+          </div>
+          <div class="form-group mb-2">
+            <label for="age">Âge</label>
+            <input type="number" class="form-control" id="age" [(ngModel)]="showEtudiant!.age" name="age" required>
+          </div>
+          <div class="form-group mb-2">
+            <label for="phone">Téléphone</label>
+            <input type="number" class="form-control" id="phone" [(ngModel)]="showEtudiant!.telephone" name="phone" required>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-success mt-4">Mettre à Jour</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  
